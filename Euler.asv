@@ -3,7 +3,7 @@ y_initial = y0;
 x_initial = x0;
 x_final = xf;
 number_of_sub_intervals = 0;
-h = (x_final - x_initial)/N;
+h = N/(x_final - x_initial);
 matrix_index = 1;
 
 while x_initial <= xf
