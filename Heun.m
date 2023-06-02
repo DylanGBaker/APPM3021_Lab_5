@@ -2,7 +2,6 @@ function [x,y] = Heun(f,x0,y0,N,xf)
 y_initial = y0;
 x_initial = x0;
 x_final = xf;
-number_of_sub_intervals = 0;
 h = (x_final - x_initial)/N;
 matrix_index = 1;
 
