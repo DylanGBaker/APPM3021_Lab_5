@@ -19,16 +19,17 @@ while x_initial <= x_final
         temp = f{i};
         k_one(i,1) = h * (temp(x_initial, y0{:}));
         x_initial_change = x_initial;
+        y_initial_change = y0;
 
         x_initial_change = x_initial_change + h/2;
         for k = 1:size(y0,1)
-            y_initial_change{k,1} = y0{k,1} + k_one(i,1)/2;
+            y_initial_change = y0{k,1} + k_one(i,1)/2;
         end
 
         k_two(i,1) = h * (temp(x_initial_change, y_initial_change{:}));
 
         for k = 1:size(y0,1)
-            y_initial_change{k,1} = y0{k,1} + k_two(i,1)/2;
+            y_initial_change = y0{k,1} + k_two(i,1)/2;
         end
 
         k_three(i,1) = h * (temp(x_initial_change, y_initial_change{:}));
@@ -36,7 +37,7 @@ while x_initial <= x_final
         x_initial_change = x_initial;
         x_initial_change = x_initial_change + h;
         for k = 1:size(y0,1)
-            y_initial_change{k,1} = y0{k,1} + k_three(i,1);
+            y_initial_change = y0{k,1} + k_three(i,1);
         end
         
         k_four(i,1) = h * (temp(x_initial_change, y_initial_change{:}));
