@@ -5,10 +5,10 @@ x_initial = xspan(1);
 x_final = xspan(2);
 h = (xspan(2) - xspan(1))/N;
 matrix_index = 1;
-k_one = zeros(size(y0,1),1)
-k_two = zeros(size(y0,1),1)
-k_three = zeros(size(y0,1),1)
-k_four = zeros(size(y0,1),1)
+k_one = zeros(size(y0,1),1);
+k_two = zeros(size(y0,1),1);
+k_three = zeros(size(y0,1),1);
+k_four = zeros(size(y0,1),1);
 
 while x_initial <= x_final
     x(matrix_index,1) = x_initial;
@@ -29,16 +29,16 @@ while x_initial <= x_final
 
         k_two(i,1) = h * (temp(x_initial_change, y_initial_change{:}));
 
-        for k = 1:size(y0,1)
-            y_initial_change{k,1} = y0{k,1} + k_two(i,1)/2;
+        for k = 1:size(y0,2)
+            y_initial_change{k,1} = y0{1,k} + k_two(i,1)/2;
         end
 
         k_three(i,1) = h * (temp(x_initial_change, y_initial_change{:}));
 
         x_initial_change = x_initial;
         x_initial_change = x_initial_change + h;
-        for k = 1:size(y0,1)
-            y_initial_change{1,k} = y0{1,k} + k_three(i,1);
+        for k = 1:size(y0,2)
+            y_initial_change{k,1} = y0{1,k} + k_three(i,1);
         end
         
         k_four(i,1) = h * (temp(x_initial_change, y_initial_change{:}));
