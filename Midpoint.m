@@ -5,7 +5,7 @@ x_final = xf;
 h = (x_final - x_initial)/N;
 matrix_index = 1;
 
-while x_initial <= xf
+while x_initial <= xf + h
     x(matrix_index,1) = x_initial;
     y(matrix_index,1) = y_initial;
     y_initial_plus_one = y_initial + (h)*(f(x_initial + h/2, y_initial + h/2*f(x_initial,y_initial)));

@@ -1,4 +1,5 @@
 function [x,y]= RK4system (f, xspan, y0, N)
+format long
 y0 = num2cell(y0);
 y_initial = y0;
 x_initial = xspan(1);
@@ -14,7 +15,6 @@ while x_initial <= x_final + h
     x(matrix_index,1) = x_initial;
     for i = 1:size(y0,2)
         y(matrix_index,i) = y_initial{1,i};
-        disp(y(matrix_index,i));
     end
     
 
@@ -50,7 +50,6 @@ while x_initial <= x_final + h
     for i = 1:size(y0,2)
         y_initial_plus_one(1,i) = y_initial{1,i} + (1/6 * (k_one(i,1) + 2*k_two(i,1) + 2*k_three(i,1) + k_four(i,1)));
         y_initial{1,i} = y_initial_plus_one(1,i);
-        disp(y_initial{1,i});
     end
     x_initial = x_initial + h;
     matrix_index = matrix_index + 1;

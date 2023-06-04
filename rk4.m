@@ -6,7 +6,7 @@ number_of_sub_intervals = 0;
 h = (x_final - x_initial)/N;
 matrix_index = 1;
 
-while x_initial <= xf
+while x_initial <= xf + h
     x(matrix_index,1) = x_initial;
     y(matrix_index,1) = y_initial;
 

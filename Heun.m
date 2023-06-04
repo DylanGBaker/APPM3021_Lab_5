@@ -5,7 +5,7 @@ x_final = xf;
 h = (x_final - x_initial)/N;
 matrix_index = 1;
 
-while x_initial <= xf
+while x_initial <= xf + h
     %Need to do the euler method first
     x(matrix_index,1) = x_initial;
     y(matrix_index,1) = y_initial;
