@@ -16,9 +16,10 @@ while x_initial <= x_final + h
     for i = 1:size(y0,2)
         y(matrix_index,i) = y_initial{1,i};
     end
-    
-
     for i = 1:size(y0,2)
+        if i > size(f,1)
+            i = 1;
+        end
         temp = f{i};
         k_one(i,1) = h * (temp(x_initial, y_initial{:}));
         x_initial_change = x_initial;
@@ -48,6 +49,9 @@ while x_initial <= x_final + h
     %%%%%%%%%%%
 
     for i = 1:size(y0,2)
+        if i > size(f,1)
+            i = 1;
+        end
         y_initial_plus_one(1,i) = y_initial{1,i} + (1/6 * (k_one(i,1) + 2*k_two(i,1) + 2*k_three(i,1) + k_four(i,1)));
         y_initial{1,i} = y_initial_plus_one(1,i);
     end

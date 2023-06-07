@@ -61,8 +61,22 @@ hold off
 
 
 %% Question 3
+E = 9;
+L = 1.2 * 10^-3;
+C = 5 * 10^-3;
+R = 0.25;
+N = 20;
+xspan = [0 0.05];
+y0 = [0 0 0 0];
+f1 = @(x,y1,y2,y3,y4) y2;
+f2 = @(x,y1,y2,y3,y4) (E/L) - (R/L)*y2 - (1/L*C)*y2 - (1/L*C)*y4;
 
+f = {f1; f2};
 
+[x,y] = RK4system(f,xspan, y0, N)
+
+figure(10)
+plot(x(:,1),y(:,2))
 %% Question 4a
 f1 = @(x,y1,y2) y2;
 f2 = @(x,y1,y2) 16.81 * y1;
