@@ -10,7 +10,7 @@ y0 = [0 0 2];
 xspan = [0 10];
 N = 20;
 
-[x,y] = RK4system(f,xspan,y0,N)
+[x,y] = RK4system(f,xspan,y0,N);
 
 figure(1)
 plot(x(:,1),y(:,2), '-d')
@@ -24,13 +24,13 @@ x0 = 0;
 xf = pi;
 N = 10;
 
-[x1,y1] = Euler(f,x0,y0,N,xf)
+[x1,y1] = Euler(f,x0,y0,N,xf);
 
 N = 50;
-[x2,y2] = Euler(f,x0,y0,N,xf)
+[x2,y2] = Euler(f,x0,y0,N,xf);
 
 N = 100;
-[x3,y3] = Euler(f,x0,y0,N,xf)
+[x3,y3] = Euler(f,x0,y0,N,xf); 
 
 figure(2)
 plot(x1(:,1), y1(:,1), '-d')
@@ -46,10 +46,10 @@ x0 = 0;
 xf = pi;
 N = 300;
 
-[x1,y1] = Euler(f,x0,y0,N,xf)
-[x2,y2] = Heun(f,x0,y0,N,xf)
-[x3,y3] = Midpoint(f,x0,y0,N,xf)
-[x4,y4] = rk4(f,x0,y0,N,xf)
+[x1,y1] = Euler(f,x0,y0,N,xf);
+[x2,y2] = Heun(f,x0,y0,N,xf);
+[x3,y3] = Midpoint(f,x0,y0,N,xf);
+[x4,y4] = rk4(f,x0,y0,N,xf);
 
 figure(3)
 plot(x1(:,1), y1(:,1), '-d')
@@ -73,10 +73,19 @@ f2 = @(x,y1,y2,y3,y4) (E/L) - (R/L)*y2 - (1/L*C)*y2 - (1/L*C)*y4;
 
 f = {f1; f2};
 
-[x,y] = RK4system(f,xspan, y0, N)
+[x1,y1] = RK4system(f,xspan, y0, N);
 
+f1 = @(x,y1,y2,y3,y4) y2;
+f2 = @(x,y1,y2,y3,y4) -(R/L)*y2 - (2/L*C)*y1 + (1/L*C)*y4;
+
+f = {f1;f2};
+[x2,y2] = RK4system(f,xspan, y0, N);
 figure(10)
-plot(x(:,1),y(:,2))
+plot(x1(:,1),y1(:,2), '-*')
+hold on
+plot(x2(:,1),y2(:,2), '-^')
+hold off
+
 %% Question 4a
 f1 = @(x,y1,y2) y2;
 f2 = @(x,y1,y2) 16.81 * y1;
@@ -85,9 +94,9 @@ y0 = [1.0 -4.1];
 xspan = [0 2];
 N = 30;
 
-[x,y] = RK4system(f,xspan,y0,N)
+[x,y] = RK4system(f,xspan,y0,N);
 figure(4)
-plot(x(:,1),y(:,2))
+plot(x(:,1),y(:,1))
 %% Question 4b
 f1 = @(x,y1,y2) y2;
 f2 = @(x,y1,y2) 16.81 * y1;
@@ -96,20 +105,18 @@ y0 = [1.0 -4.101];
 xspan = [0 2];
 N = 30;
 
-[x,y] = RK4system(f,xspan,y0,N)
+[x,y] = RK4system(f,xspan,y0,N);
 figure(5)
 plot(x(:,1),y(:,2))
 
 %% Question 5
-
-%% Question 6
 y = @(x) exp((x^3)/3 - x);
 f = @(x,y) y*x^2 - y;
 x0 = 0;
 h = 0.1;
 xf = 2;
 ytrue = getTruePointsForFunction(y,h,x0,xf);
-errorMatrix = ivpmethods(f,x0,1,h,xf,ytrue)
+errorMatrix = ivpmethods(f,x0,1,h,xf,ytrue);
 
 figure(6)
 subplot(1,3,1)
@@ -121,5 +128,6 @@ subplot(1,3,3)
 plot(errorMatrix(:,1),errorMatrix(:,4), '-^')
 hold off
 
+%% Question 5
 %% Question 7
 end
