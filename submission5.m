@@ -14,6 +14,8 @@ N = 20;
 
 figure(1)
 plot(x(:,1),y(:,2), '-d')
+xlabel("x")
+ylabel("y'")
 hold on
 hold off
 
@@ -37,6 +39,9 @@ plot(x1(:,1), y1(:,1), '-d')
 hold on
 plot(x2(:,1), y2(:,1), '-*')
 plot(x3(:,1), y3(:,1), '-^')
+legend("x and y for N = 10", "x and y for N = 50", "x and y for N = 100", 'Location','best')
+xlabel("x")
+ylabel("y")
 hold off
 
 %% Question 2b
@@ -57,8 +62,12 @@ hold on
 plot(x2(:,1), y2(:,1), '-*')
 plot(x3(:,1), y3(:,1), '-^')
 plot(x4(:,1), y4(:,1), '-o')
+legend("Euler", "Heun", "Midpoint", 'rk4', 'Location','best')
+xlabel("x")
+ylabel("y")
 hold off
 
+disp("When zooming in on the graph in Matlab the Euler method is seperated from the other graphs showing that the other methods are better.")
 
 %% Question 3
 E = 9;
@@ -80,10 +89,13 @@ f2 = @(x,y1,y2,y3,y4) -(R/L)*y2 - (2/L*C)*y1 + (1/L*C)*y4;
 
 f = {f1;f2};
 [x2,y2] = RK4system(f,xspan, y0, N);
-figure(10)
+figure(4)
 plot(x1(:,1),y1(:,2), '-*')
 hold on
 plot(x2(:,1),y2(:,2), '-^')
+legend('i1', 'i2', 'Location','best')
+xlabel("time")
+ylabel("current")
 hold off
 
 %% Question 4a
@@ -95,8 +107,10 @@ xspan = [0 2];
 N = 30;
 
 [x,y] = RK4system(f,xspan,y0,N);
-figure(4)
+figure(5)
 plot(x(:,1),y(:,1))
+xlabel("x")
+ylabel("y")
 %% Question 4b
 f1 = @(x,y1,y2) y2;
 f2 = @(x,y1,y2) 16.81 * y1;
@@ -106,26 +120,41 @@ xspan = [0 2];
 N = 30;
 
 [x,y] = RK4system(f,xspan,y0,N);
-figure(5)
+figure(6)
 plot(x(:,1),y(:,2))
+xlabel("x")
+ylabel("y")
+
+disp("When determining the analytical solution I used D operators. This gave y = Ae^(4.1*x) + Be^(-4.1*x). Using the initial conditions in 4a, A = 0 and B = 1. So when solving using the analytical method");
+disp("The A term is not there for 4a. Hence only the Be^(-4.1*x) contributes.");
+disp("When using initial conditions from 4b, A = 0.034 and B = 0.966. Now that A is there, the Ae^(4.1*x) contributes to solution and causes it to be different from the solutions of y for initial conditions 4a");
 
 %% Question 5
-y = @(x) exp((x^3)/3 - x);
+y = @(x) exp((x^3/3)- x);
 f = @(x,y) y*x^2 - y;
 x0 = 0;
 h = 0.1;
 xf = 2;
-ytrue = getTruePointsForFunction(y,h,x0,xf);
+ytrue = getTruePointsForFunction(y,h,x0,xf)
 errorMatrix = ivpmethods(f,x0,1,h,xf,ytrue);
 
-figure(6)
+figure(7)
 subplot(1,3,1)
 plot(errorMatrix(:,1),errorMatrix(:,2), '-o')
+xlabel("x")
+ylabel("y error")
+legend("Euler", 'Location','best');
 hold on
 subplot(1,3,2)
 plot(errorMatrix(:,1),errorMatrix(:,3), '-*')
+legend("Heun", 'Location','best');
+xlabel("x")
+ylabel("y error")
 subplot(1,3,3)
 plot(errorMatrix(:,1),errorMatrix(:,4), '-^')
+legend("rk4", 'Location','best');
+xlabel("x")
+ylabel("y error")
 hold off
 
 %% Question 5
